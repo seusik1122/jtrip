@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>J-Trip Advisor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        /* 커스텀 스타일 정의 (カスタムスタイル定義) */
+        .badge-score { font-size: 0.9em; }
+
+        /* 삭제 버튼 스타일 조정: 사용자 실수 방지를 위해 너무 눈에 띄지 않게 처리 */
+        /* 削除ボタンスタイルの調整: ユーザーの操作ミスを防ぐため、目立ちすぎないように処理 */
+        .btn-delete {
+            line-height: 1;
+            padding: 0 5px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container pt-5">
+    <h1 class="text-center mb-5">🇯🇵 J-Trip Advisor</h1>
+
+    <div class="row">
+        {{#places}}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h4 class="card-title font-weight-bold mb-0">{{name}}</h4>
+                            <span class="badge badge-warning text-white shadow-sm" style="font-size: 1.0rem;">
+                                ⭐ {{averageScore}}
+                            </span>
+                        </div>
+
+                        <p class="card-text">{{description}}</p>
+                        <hr>
+
+                        <div class="mb-4">
+                            <h6 class="text-muted mb-2">📝 여행자 리뷰 & AI 점수</h6>
+                            <ul class="list-group list-group-flush">
+
+                                {{#reviews}}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        <span class="text-dark">{{content}}</span>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="badge badge-primary badge-pill badge-score mr-2">{{sentimentScore}}점</span>
+
+                                            <form action="/review/delete" method="post" style="margin: 0;">
+                                                <input type="hidden" name="reviewId" value="{{id}}">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger border-0 btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">
+                                                    &times;
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                {{/reviews}}
+
+                                {{^reviews}}
+                                    <li class="list-group-item text-muted small px-0">
+                                        아직 작성된 리뷰가 없습니다.<br>첫 번째 리뷰를 남겨보세요!
+                                        (まだ作成されたレビューがありません。<br>最初のレビューを残してみてください！)
+                                    </li>
+                                {{/reviews}}
+                            </ul>
+                        </div>
+
+                        <form action="/review" method="post">
+                            <input type="hidden" name="placeId" value="{{id}}">
+                            <div class="form-group">
+                                <textarea name="content" class="form-control" placeholder="리뷰를 남겨주세요 (일본어)" rows="2" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark btn-block">리뷰 등록 / AI 분석</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{/places}}
+
+        {{^places}}
+            <div class="col-12 text-center">
+                <p>등록된 관광지가 없습니다. DB에 데이터를 추가해주세요!</p>
+                <p>(登録された観光地がありません。DBにデータを追加してください！)</p>
+            </div>
+        {{/places}}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
