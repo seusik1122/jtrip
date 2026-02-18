@@ -1,4 +1,4 @@
-import google.generativeai as genai
+from google import genai
 import re
 
 # ==========================================
@@ -8,13 +8,9 @@ import re
 # ==========================================
 API_KEY = "YOUR_API_KEY_HERE" # 본인의 API 키를 입력하세요 (ご自身のAPIキーを入力してください)
 
-# Gemini API 클라이언트 설정
-# Gemini APIクライアントの設定
-genai.configure(api_key=API_KEY)
-
-# 응답 속도와 비용 효율성이 뛰어난 Gemini 1.5 Flash 모델 사용
-# 応答速度とコスト効率に優れたGemini 1.5 Flashモデルを使用
-model = genai.GenerativeModel('gemini-1.5-flash')
+# Gemini API 클라이언트 설정 (New SDK)
+# Gemini APIクライアントの設定 (新SDK)
+client = genai.Client(api_key=API_KEY)
 
 def analyze_text(text: str) -> float:
     """
@@ -54,9 +50,12 @@ def analyze_text(text: str) -> float:
         {text}
         """
 
-        # 1. AI 모델에 콘텐츠 생성 요청
-        # 1. AIモデルへコンテンツ生成をリクエスト
-        response = model.generate_content(prompt)
+        # 1. AI 모델에 콘텐츠 생성 요청 (New SDK Method)
+        # 1. AIモデルへコンテンツ生成をリクエスト (新SDKメソッド)
+        response = client.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=prompt
+        )
 
         # 2. 응답 텍스트 추출 및 공백 제거
         # 2. レスポンステキストの抽出および空白削除
