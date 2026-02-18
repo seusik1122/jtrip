@@ -31,3 +31,10 @@ def analyze_sentiment(item: ReviewRequest):
     # 2. 분석 결과를 JSON 형식으로 반환
     # 2. 分析結果をJSON形式で返却
     return {"score": score}
+
+import uvicorn
+
+if __name__ == "__main__":
+    # 포트 8000번에서 실행 (Java는 8080/8081이니까 안 겹침!)
+    # ポート8000番で実行 (Javaは8080/8081なので重複しない!)
+    uvicorn.run(app, host="0.0.0.0", port=5000)
