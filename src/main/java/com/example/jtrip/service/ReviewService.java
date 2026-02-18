@@ -55,7 +55,7 @@ public class ReviewService {
 
             // AI 서버 엔드포인트 URL
             // AIサーバーのエンドポイントURL
-            String aiUrl = "http://localhost:8000/analyze";
+            String aiUrl = "http://localhost:5000/analyze";
 
             // 요청 본문 생성
             // リクエスト本文の生成
