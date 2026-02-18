@@ -3,7 +3,7 @@
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.2-green)
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
-![Gemini](https://img.shields.io/badge/AI-Gemini%201.5%20Flash-purple)
+![Gemini](https://img.shields.io/badge/AI-Gemini%203.0%20Flash-purple)
 
 ## 📖 프로젝트 소개 (Project Overview / プロジェクト概要)
 
